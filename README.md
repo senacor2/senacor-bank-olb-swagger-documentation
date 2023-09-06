@@ -9,5 +9,5 @@ This repository contains swagger documentation for services of the senacor bank 
 
 ## Client-ms
 
-- [base url](https://authentication-ms-sfad4xogja-ew.a.run.app)
+- [base url](https://clients-ms-sfad4xogja-ew.a.run.app)
 - [swagger](./swagger/authentication-ms.json)
