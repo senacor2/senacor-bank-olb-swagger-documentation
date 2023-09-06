@@ -1,0 +1,109 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "8.5.1",
+    "title": "@fastify/swagger"
+  },
+  "definitions": {},
+  "paths": {
+    "/authentication": {
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "format": "email",
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transactionId": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "transactionId"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/authentication/{transactionId}": {
+      "patch": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object",
+              "properties": {
+                "tanCode": {
+                  "pattern": "^[0-9]{6}$",
+                  "type": "string"
+                },
+                "email": {
+                  "format": "email",
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "tanCode",
+                "email",
+                "password"
+              ]
+            }
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "path",
+            "name": "transactionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "accessToken"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
