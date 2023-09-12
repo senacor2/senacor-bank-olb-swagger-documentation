@@ -1,0 +1,539 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "8.5.1",
+    "title": "@fastify/swagger"
+  },
+  "definitions": {},
+  "paths": {
+    "/partners/self/regular-savings/{productId}/transactions/withdrawal/validation": {
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "creditorIban": {
+                  "type": "string"
+                },
+                "creditorName": {
+                  "minLength": 1,
+                  "maxLength": 70,
+                  "pattern": "^[a-zA-Z0-9\\s]+$",
+                  "type": "string"
+                },
+                "purpose": {
+                  "pattern": "^[\\w\\s:?,\\-()+./ÄäÖöÜüß&*$%]{0,140}$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "creditorIban",
+                "creditorName",
+                "purpose"
+              ]
+            }
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "path",
+            "name": "productId"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-client-id"
+          },
+          {
+            "format": "email",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-email"
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-partner-id"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "user-agent"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "challengeDataJwtSigner": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "challengeDataJwtSigner"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/partners/self/regular-savings/{productId}/transactions/withdrawal/": {
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "creditorIban": {
+                  "type": "string"
+                },
+                "creditorName": {
+                  "type": "string"
+                },
+                "purpose": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "creditorIban",
+                "creditorName",
+                "purpose"
+              ]
+            }
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "path",
+            "name": "productId"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "transaction-signing-token"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-client-id"
+          },
+          {
+            "format": "email",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-email"
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-partner-id"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "user-agent"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/partners/self/regular-savings/{productId}": {
+      "get": {
+        "parameters": [
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "path",
+            "name": "productId"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-client-id"
+          },
+          {
+            "format": "email",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-email"
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-partner-id"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "user-agent"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "balance": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "currencyCode": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "currencyCode"
+                  ]
+                },
+                "interestRate": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "balance",
+                "interestRate"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/partners/self/regular-savings": {
+      "get": {
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-client-id"
+          },
+          {
+            "format": "email",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-email"
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-partner-id"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "user-agent"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "regularSavings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "balance": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number"
+                          },
+                          "currencyCode": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "value",
+                          "currencyCode"
+                        ]
+                      },
+                      "interestRate": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "balance",
+                      "interestRate"
+                    ]
+                  }
+                },
+                "totalBalance": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "currencyCode": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "currencyCode"
+                  ]
+                }
+              },
+              "required": [
+                "regularSavings",
+                "totalBalance"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/partners/self/regular-savings/{productId}/transactions": {
+      "get": {
+        "parameters": [
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "path",
+            "name": "productId"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-client-id"
+          },
+          {
+            "format": "email",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-email"
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-partner-id"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "user-agent"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transactions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "executionDate": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "purpose": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number"
+                          },
+                          "currencyCode": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "value",
+                          "currencyCode"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "executionDate",
+                      "purpose",
+                      "amount"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "transactions"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/partners/self/regular-savings/{productId}/reference-account/validation": {
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accountOwner": {
+                  "type": "string"
+                },
+                "bankName": {
+                  "type": "string"
+                },
+                "iban": {
+                  "type": "string"
+                },
+                "bic": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "accountOwner",
+                "bankName",
+                "iban",
+                "bic"
+              ]
+            }
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "path",
+            "name": "productId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "challengeDataJwt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "challengeDataJwt"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/partners/self/regular-savings/{productId}/reference-account": {
+      "patch": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accountOwner": {
+                  "type": "string"
+                },
+                "bankName": {
+                  "type": "string"
+                },
+                "iban": {
+                  "type": "string"
+                },
+                "bic": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "accountOwner",
+                "bankName",
+                "iban",
+                "bic"
+              ]
+            }
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "path",
+            "name": "productId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    }
+  }
+}
