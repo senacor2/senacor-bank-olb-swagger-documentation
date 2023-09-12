@@ -17,6 +17,11 @@ This repository contains swagger documentation for services of the senacor bank 
 - [base url](https://fixed-deposits-ms-sfad4xogja-ew.a.run.app)
 - [swagger](./swagger/fixed-deposits-ms.json)
 
+## Legitimation-ms
+
+- [base url](https://legitimation-ms-sfad4xogja-ew.a.run.app)
+- [swagger](./swagger/legitimation-ms.json)
+
 ## Regular-savings-ms
 
 - [base url](https://regular-savings-ms-sfad4xogja-ew.a.run.app)

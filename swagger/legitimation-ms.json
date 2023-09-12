@@ -1,0 +1,118 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "8.3.1",
+    "title": "@fastify/swagger"
+  },
+  "definitions": {},
+  "paths": {
+    "/partners/self/legitimation": {
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "challengeDataJwt": {
+                  "type": "string"
+                },
+                "deviceId": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "challengeDataJwt",
+                "deviceId"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transactionId": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "transactionId"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/partners/self/legitimation/{transactionId}": {
+      "patch": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tanCode": {
+                  "pattern": "^\\d{6}$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "tanCode"
+              ]
+            }
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "path",
+            "name": "transactionId"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-client-id"
+          },
+          {
+            "format": "email",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-email"
+          },
+          {
+            "format": "uuid",
+            "type": "string",
+            "required": true,
+            "in": "header",
+            "name": "senacor-olb-partner-id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transactionSigningJwt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "transactionSigningJwt"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
