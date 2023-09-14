@@ -22,6 +22,11 @@ This repository contains swagger documentation for services of the senacor bank 
 - [base url](https://legitimation-ms-sfad4xogja-ew.a.run.app)
 - [swagger](./swagger/legitimation-ms.json)
 
+## OLB-backend (deprecated)
+
+- [base url](https://olb-backend-main-sfad4xogja-ew.a.run.app)
+- [swagger](./swagger/olb-backend.json)
+
 ## Regular-savings-ms
 
 - [base url](https://regular-savings-ms-sfad4xogja-ew.a.run.app)

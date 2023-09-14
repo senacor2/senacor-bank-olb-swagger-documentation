@@ -1,0 +1,1546 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Senacor Bank Olb Backend",
+    "description": "Openapi documentation of Senacor Bank Olb Backend",
+    "version": "1.0.0"
+  },
+  "definitions": {
+    "amount": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "currencyCode": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "currencyCode"
+      ]
+    }
+  },
+  "paths": {
+    "/authentication/": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-07/schema",
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "authenticationId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "authenticationId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "login/incorrect_credentials"
+                  ]
+                },
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    401
+                  ]
+                },
+                "details": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "title"
+              ]
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "authentication"
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully logged out"
+          }
+        }
+      }
+    },
+    "/authentication/{authenticationId}": {
+      "patch": {
+        "tags": [
+          "authentication"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-07/schema",
+              "type": "object",
+              "properties": {
+                "tan": {
+                  "type": "string",
+                  "pattern": "^\\d{6}$"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "tan",
+                "email",
+                "password"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "required": true,
+            "in": "path",
+            "name": "authenticationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "accessToken"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "login/incorrect_tan"
+                  ]
+                },
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    401
+                  ]
+                },
+                "details": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "title"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/authentication/reset-password": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-07/schema",
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "dateOfBirth": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "email": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "firstName",
+                "lastName",
+                "dateOfBirth",
+                "email"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "non-existing-user"
+                  ]
+                },
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    401
+                  ]
+                },
+                "details": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "title"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/": {
+      "get": {
+        "tags": [
+          "clients"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "lastModifiedDate": {
+                  "type": "string"
+                },
+                "permissions": {
+                  "type": "object",
+                  "properties": {
+                    "canSeeSubNavigationForPersonalInformation": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "canSeeSubNavigationForPersonalInformation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "clientId",
+                "firstName",
+                "lastName",
+                "lastModifiedDate",
+                "permissions"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    401
+                  ]
+                },
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "UNAUTHORIZED"
+                  ]
+                },
+                "error": {
+                  "type": "string",
+                  "enum": [
+                    "Unauthorized"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statusCode",
+                "code",
+                "error",
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    404
+                  ]
+                },
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "NOT_FOUND"
+                  ]
+                },
+                "error": {
+                  "type": "string",
+                  "enum": [
+                    "Not found"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statusCode",
+                "code",
+                "error",
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/security": {
+      "get": {
+        "tags": [
+          "clients"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                },
+                "mobileTanNumber": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clientId",
+                "mobileTanNumber",
+                "email"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/tax-information": {
+      "get": {
+        "tags": [
+          "clients"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "definitions": {
+                "amount": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "currencyCode": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "value",
+                    "currencyCode"
+                  ]
+                }
+              },
+              "properties": {
+                "taxId": {
+                  "type": "string"
+                },
+                "exemptionOrder": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "totalExemptAmount": {
+                      "$ref": "#/definitions/amount"
+                    },
+                    "usedExemptAmount": {
+                      "$ref": "#/definitions/amount"
+                    },
+                    "validFrom": {
+                      "type": "string"
+                    },
+                    "validUntil": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "totalExemptAmount",
+                    "usedExemptAmount",
+                    "validFrom",
+                    "validUntil"
+                  ]
+                },
+                "nonAssessmentCertificate": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "validFrom": {
+                      "type": "string"
+                    },
+                    "validUntil": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "validFrom",
+                    "validUntil"
+                  ]
+                }
+              },
+              "required": [
+                "taxId"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/personal-information": {
+      "get": {
+        "tags": [
+          "clients"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "salutation": {
+                  "type": "string"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "dateOfBirth": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "homePhone": {
+                  "type": "string"
+                },
+                "mobilePhone": {
+                  "type": "string"
+                },
+                "taxId": {
+                  "type": "string"
+                },
+                "addresses": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "addressType": {
+                        "type": "string"
+                      },
+                      "streetNumber": {
+                        "type": "string"
+                      },
+                      "zipCode": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "city": {
+                        "type": "string"
+                      },
+                      "street": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "addressType",
+                      "state",
+                      "street",
+                      "streetNumber",
+                      "city",
+                      "country",
+                      "zipCode"
+                    ]
+                  }
+                },
+                "permissions": {
+                  "type": "object",
+                  "properties": {
+                    "canChangePersonalInformation": {
+                      "type": "boolean"
+                    },
+                    "canUploadDocument": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "canChangePersonalInformation",
+                    "canUploadDocument"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "title",
+                "salutation",
+                "clientId",
+                "firstName",
+                "lastName",
+                "dateOfBirth",
+                "email",
+                "homePhone",
+                "mobilePhone",
+                "taxId",
+                "addresses",
+                "permissions"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/fixed-deposits/": {
+      "get": {
+        "tags": [
+          "deposits"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "definitions": {
+                "amount": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "currencyCode": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "value",
+                    "currencyCode"
+                  ]
+                }
+              },
+              "properties": {
+                "deposits": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "readable": {
+                        "type": "boolean"
+                      },
+                      "accountNumber": {
+                        "type": "string"
+                      },
+                      "balance": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number"
+                          },
+                          "currencyCode": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "value",
+                          "currencyCode"
+                        ]
+                      },
+                      "interestRate": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "balance",
+                      "interestRate",
+                      "accountNumber",
+                      "readable"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "totalBalance": {
+                  "$ref": "#/definitions/amount"
+                },
+                "permissions": {
+                  "type": "object",
+                  "properties": {
+                    "canCreateFixedDeposit": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "canCreateFixedDeposit"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "deposits",
+                "totalBalance",
+                "permissions"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/fixed-deposits/{fixedDepositId}": {
+      "get": {
+        "tags": [
+          "deposits"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "required": true,
+            "in": "path",
+            "name": "fixedDepositId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "definitions": {
+                "amount": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "currencyCode": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "value",
+                    "currencyCode"
+                  ]
+                }
+              },
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "balance": {
+                  "$ref": "#/definitions/amount"
+                },
+                "interestRate": {
+                  "type": "number"
+                },
+                "accountNumber": {
+                  "type": "string"
+                },
+                "accountState": {
+                  "type": "string",
+                  "enum": [
+                    "ACTIVE",
+                    "PENDING_APPROVAL",
+                    "APPROVED",
+                    "CLOSED"
+                  ]
+                },
+                "investmentPeriod": {
+                  "type": "number"
+                },
+                "investmentPeriodUnit": {
+                  "type": "string",
+                  "enum": [
+                    "MONTH"
+                  ]
+                },
+                "referenceAccount": {
+                  "type": "object",
+                  "properties": {
+                    "iban": {
+                      "type": "string"
+                    },
+                    "bank": {
+                      "type": "string"
+                    },
+                    "accountOwner": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "iban",
+                    "bank",
+                    "accountOwner"
+                  ]
+                },
+                "conditions": {
+                  "type": "object",
+                  "properties": {
+                    "depositAmount": {
+                      "$ref": "#/definitions/amount"
+                    },
+                    "interestYield": {
+                      "$ref": "#/definitions/amount"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": []
+                },
+                "permissions": {
+                  "type": "object",
+                  "properties": {
+                    "canWrite": {
+                      "type": "boolean"
+                    },
+                    "canSeeTransactions": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "canWrite",
+                    "canSeeTransactions"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "id",
+                "balance",
+                "interestRate",
+                "accountNumber",
+                "accountState",
+                "investmentPeriod",
+                "investmentPeriodUnit",
+                "referenceAccount",
+                "conditions",
+                "permissions"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    403
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statusCode",
+                "title",
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    404
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statusCode",
+                "title",
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/fixed-deposits/{fixedDepositId}/transactions": {
+      "get": {
+        "tags": [
+          "deposit-transactions"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transactions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "executionDate": {
+                        "type": "string"
+                      },
+                      "purpose": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "object",
+                        "properties": {
+                          "currencyCode": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "number"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "value",
+                          "currencyCode"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "executionDate",
+                      "purpose",
+                      "amount"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "transactions"
+              ]
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    404
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statusCode",
+                "title",
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/regular-savings/": {
+      "get": {
+        "tags": [
+          "deposits"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "definitions": {
+                "amount": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "currencyCode": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "value",
+                    "currencyCode"
+                  ]
+                }
+              },
+              "properties": {
+                "deposits": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "accountNumber": {
+                        "type": "string"
+                      },
+                      "balance": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number"
+                          },
+                          "currencyCode": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "value",
+                          "currencyCode"
+                        ]
+                      },
+                      "interestRate": {
+                        "type": "number"
+                      },
+                      "readable": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "balance",
+                      "interestRate",
+                      "accountNumber",
+                      "readable"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "totalBalance": {
+                  "$ref": "#/definitions/amount"
+                },
+                "permissions": {
+                  "type": "object",
+                  "properties": {
+                    "canCreateRegularSavings": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "canCreateRegularSavings"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "deposits",
+                "totalBalance",
+                "permissions"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/regular-savings/{regularSavingId}": {
+      "get": {
+        "tags": [
+          "deposits"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "required": true,
+            "in": "path",
+            "name": "regularSavingId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "definitions": {
+                "amount": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "currencyCode": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "value",
+                    "currencyCode"
+                  ]
+                }
+              },
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "balance": {
+                  "$ref": "#/definitions/amount"
+                },
+                "interestRate": {
+                  "type": "number"
+                },
+                "accountNumber": {
+                  "type": "string"
+                },
+                "accountState": {
+                  "type": "string",
+                  "enum": [
+                    "ACTIVE",
+                    "PENDING_APPROVAL",
+                    "APPROVED",
+                    "CLOSED"
+                  ]
+                },
+                "activationDate": {
+                  "type": "string"
+                },
+                "referenceAccount": {
+                  "type": "object",
+                  "properties": {
+                    "iban": {
+                      "type": "string"
+                    },
+                    "bank": {
+                      "type": "string"
+                    },
+                    "accountOwner": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "iban",
+                    "bank",
+                    "accountOwner"
+                  ]
+                },
+                "permissions": {
+                  "type": "object",
+                  "properties": {
+                    "write": {
+                      "type": "boolean"
+                    },
+                    "canSeeTransactions": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "write",
+                    "canSeeTransactions"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "id",
+                "balance",
+                "interestRate",
+                "accountNumber",
+                "accountState",
+                "referenceAccount",
+                "permissions",
+                "activationDate"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    403
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statusCode",
+                "title",
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    404
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statusCode",
+                "title",
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/regular-savings/{regularSavingId}/transactions": {
+      "get": {
+        "tags": [
+          "deposit-transactions"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transactions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "executionDate": {
+                        "type": "string"
+                      },
+                      "purpose": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "object",
+                        "properties": {
+                          "currencyCode": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "number"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "value",
+                          "currencyCode"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "executionDate",
+                      "purpose",
+                      "amount"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "transactions"
+              ]
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    404
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statusCode",
+                "title",
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "/clients/self/regular-savings/{regularSavingId}/reference": {
+      "patch": {
+        "tags": [
+          "deposits"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-07/schema",
+              "type": "object",
+              "properties": {
+                "accountOwner": {
+                  "type": "string"
+                },
+                "bankName": {
+                  "type": "string"
+                },
+                "bic": {
+                  "type": "string"
+                },
+                "iban": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "accountOwner",
+                "bankName",
+                "bic",
+                "iban"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/clients/self/two-factor-mtan-devices": {
+      "get": {
+        "tags": [
+          "twoFactorMTanDevices"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "twoFactorMTanDevices": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "deviceId": {
+                        "type": "string"
+                      },
+                      "deviceStatus": {
+                        "type": "string"
+                      },
+                      "preferredDevice": {
+                        "type": "boolean"
+                      },
+                      "registeredDate": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "deviceId",
+                      "deviceStatus",
+                      "preferredDevice",
+                      "registeredDate",
+                      "phoneNumber"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "twoFactorMTanDevices"
+              ]
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "twoFactorMTanValidation"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-07/schema",
+              "type": "object",
+              "properties": {
+                "deviceId": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "deviceId"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transactionId": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "transactionId"
+              ]
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "enum": [
+                    400
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "details": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "statusCode",
+                "title",
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "host": "localhost",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "authentication",
+      "description": "Domain Authentication"
+    },
+    {
+      "name": "clients",
+      "description": "Domain Clients"
+    }
+  ],
+  "externalDocs": {
+    "url": "https://github.com/senacor2/senacor-bank-olb-documentation",
+    "description": "Find more info here"
+  }
+}
