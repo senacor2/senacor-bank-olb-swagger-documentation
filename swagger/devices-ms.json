@@ -1,0 +1,199 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "8.5.1",
+    "title": "@fastify/swagger"
+  },
+  "definitions": {},
+  "paths": {
+    "/partners/self/mtan-devices/{deviceId}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "deviceId": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "deviceStatus": {
+                  "type": "string"
+                },
+                "preferredDevice": {
+                  "type": "boolean"
+                },
+                "partnerId": {
+                  "type": "string"
+                },
+                "registeredDate": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "phoneNumber": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "deviceId",
+                "deviceStatus",
+                "preferredDevice",
+                "partnerId",
+                "registeredDate",
+                "phoneNumber"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/partners/self/mtan-devices/validation": {
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phoneNumber": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "phoneNumber"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "challengeDataJwt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "challengeDataJwt"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/partners/self/mtan-devices": {
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phoneNumber": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "phoneNumber"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "deviceId": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "deviceId"
+              ]
+            }
+          }
+        }
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mTanDevices": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "deviceId": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "deviceStatus": {
+                        "type": "string"
+                      },
+                      "preferredDevice": {
+                        "type": "boolean"
+                      },
+                      "partnerId": {
+                        "type": "string"
+                      },
+                      "registeredDate": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "deviceId",
+                      "deviceStatus",
+                      "preferredDevice",
+                      "partnerId",
+                      "registeredDate",
+                      "phoneNumber"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "mTanDevices"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/partners/self/mtan-devices/{deviceId}/standart": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "deviceId": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "deviceId"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

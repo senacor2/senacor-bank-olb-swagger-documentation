@@ -12,6 +12,11 @@ This repository contains swagger documentation for services of the senacor bank 
 - [base url](https://clients-ms-sfad4xogja-ew.a.run.app)
 - [swagger](./swagger/authentication-ms.json)
 
+## Devices-ms
+
+- [base url](https://devices-ms-sfad4xogja-ew.a.run.app)
+- [swagger](./swagger/devices-ms.json)
+
 ## Fidex-deposits-ms
 
 - [base url](https://fixed-deposits-ms-sfad4xogja-ew.a.run.app)
