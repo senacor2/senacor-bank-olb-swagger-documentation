@@ -29,7 +29,7 @@ This repository contains swagger documentation for services of the senacor bank 
 
 ## OLB-backend (deprecated)
 
-- [base url](https://olb-backend-main-sfad4xogja-ew.a.run.app)
+- [base url](https://olb-backend-sfad4xogja-ew.a.run.app)
 - [swagger](./swagger/olb-backend.json)
 
 ## Regular-savings-ms
