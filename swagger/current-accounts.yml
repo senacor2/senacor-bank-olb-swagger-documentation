@@ -1,0 +1,137 @@
+swagger: "2.0"
+info:
+  version: 8.6.0
+  title: "@fastify/swagger"
+definitions: {}
+paths:
+  "/partners/self/current-accounts/{productId}":
+    get:
+      responses:
+        "200":
+          description: Default Response
+          schema:
+            type: object
+            properties:
+              balance:
+                type: object
+                properties:
+                  value:
+                    type: number
+                  currencyCode:
+                    type: string
+                required:
+                  - value
+                  - currencyCode
+              interestRate:
+                type: number
+            required:
+              - balance
+              - interestRate
+  /partners/self/current-accounts:
+    get:
+      responses:
+        "200":
+          description: Default Response
+          schema:
+            type: object
+            properties:
+              currentAccounts:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    balance:
+                      type: object
+                      properties:
+                        value:
+                          type: number
+                        currencyCode:
+                          type: string
+                      required:
+                        - value
+                        - currencyCode
+                    interestRate:
+                      type: number
+                  required:
+                    - balance
+                    - interestRate
+              totalBalance:
+                type: object
+                properties:
+                  value:
+                    type: number
+                  currencyCode:
+                    type: string
+                required:
+                  - value
+                  - currencyCode
+            required:
+              - currentAccounts
+              - totalBalance
+  "/partners/self/current-accounts/{productId}/transactions":
+    get:
+      parameters:
+        - format: uuid
+          type: string
+          required: true
+          in: path
+          name: productId
+        - type: string
+          required: true
+          in: header
+          name: senacor-olb-client-id
+        - format: email
+          type: string
+          required: true
+          in: header
+          name: senacor-olb-email
+        - format: uuid
+          type: string
+          required: true
+          in: header
+          name: senacor-olb-partner-id
+        - type: string
+          required: true
+          in: header
+          name: user-agent
+      responses:
+        "200":
+          description: Default Response
+          schema:
+            type: object
+            properties:
+              transactions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    executionDate:
+                      format: date-time
+                      type: string
+                    type:
+                      type: string
+                    amount:
+                      type: object
+                      properties:
+                        value:
+                          type: number
+                        currencyCode:
+                          type: string
+                      required:
+                        - value
+                        - currencyCode
+                    purpose:
+                      type: string
+                    name:
+                      type: string
+                    iban:
+                      type: string
+                  required:
+                    - executionDate
+                    - type
+                    - amount
+                    - purpose
+                    - name
+                    - iban
+            required:
+              - transactions
