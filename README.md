@@ -15,7 +15,7 @@ This repository contains swagger documentation for services of the senacor bank 
 ## Current-accouns
 
 - [base url](https://current-accounts-ms-sfad4xogja-ew.a.run.app)
-- [swagger](./swagger/current-accounts.yml)
+- [swagger](./swagger/current-accounts-ms.yml)
 
 ## Devices-ms
 
@@ -25,7 +25,7 @@ This repository contains swagger documentation for services of the senacor bank 
 ## Fidex-deposits-ms
 
 - [base url](https://fixed-deposits-ms-sfad4xogja-ew.a.run.app)
-- [swagger](./swagger/fixed-deposits-ms.json)
+- [swagger](./swagger/fixed-deposits-ms.yml)
 
 ## Legitimation-ms
 
