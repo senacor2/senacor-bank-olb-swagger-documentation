@@ -15,7 +15,7 @@ This repository contains swagger documentation for services of the senacor bank 
 ## Current-accouns
 
 - [base url](https://current-accounts-ms-sfad4xogja-ew.a.run.app)
-- [swagger](./swagger/current-accounts.yaml)
+- [swagger](./swagger/current-accounts.yml)
 
 ## Devices-ms
 
