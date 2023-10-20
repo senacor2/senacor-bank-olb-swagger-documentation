@@ -12,7 +12,7 @@ This repository contains swagger documentation for services of the senacor bank 
 - [base url](https://clients-ms-sfad4xogja-ew.a.run.app)
 - [swagger](./swagger/authentication-ms.json)
 
-## Current-accouns
+## Current-accounts
 
 - [base url](https://current-accounts-ms-sfad4xogja-ew.a.run.app)
 - [swagger](./swagger/current-accounts-ms.yml)
